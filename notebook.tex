@@ -1,0 +1,636 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{Assignment-1}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \hypertarget{assignment-1---statistical-simulation}{%
+\section{Assignment 1 - Statistical
+Simulation}\label{assignment-1---statistical-simulation}}
+
+\textbf{Due date: April 12, 2018 by 10 pm}\\
+\textbf{Submision: Jupyter notebook file through GauchoSpace}\\
+\textbf{Late submission policy: Within 24 hours with 10\% penalty. Not
+accepted after 24 hours}\\
+\textbf{Note: This is an individual assignment}
+
+You will create a simulation. The goal is to empirically verify one
+statistics or probability concept or theorem. In doing so, you will use
+numpy arrays, sampling from various distributions, etc.
+
+State your assumptions and choices you make in your simulation setting.
+Describe what you are simulating as if you were explaining the
+statistical result to someone with computing background, but basic
+probability and statistics.
+
+If you are unclear what to do, pick a theorem, and show that it is
+correct empirically. Show all the claims is right in a probabilistic
+sense. Note that asymptotic results are theoretical results that you
+cannot unequivocally show in a simulation setting: i.e.,
+\(n\rightarrow\infty\).
+
+Communicate your goal, process, and results clearly into a Jupyter
+notebook.
+
+Guidelines:
+
+\begin{itemize}
+\tightlist
+\item
+  Make sure running your notebook takes no more than 2 minutes to
+  complete
+\item
+  Focus on explaining the concepts, coding legibly, and completeness
+\item
+  We will run your code from top to bottom. Make sure it runs to
+  completion without errors on https://jupyterhub.lsit.ucsb.edu
+\end{itemize}
+
+\hypertarget{book-resource}{%
+\subsubsection{Book resource}\label{book-resource}}
+
+An excellent resource is a book titled
+\href{https://ucsb-primo.hosted.exlibrisgroup.com/primo-explore/fulldisplay?docid=01UCSB_ALMA51283278820003776\&context=L\&vid=UCSB\&search_scope=default_scope\&isFrbr=true\&tab=default_tab\&lang=en_US}{Simulation
+by Sheldon Ross}. Relevant materials are in Chapters 8 - 12.
+
+\hypertarget{students}{%
+\subsubsection{234 students}\label{students}}
+
+The sky is the limit! You are free to simulate some probabilistic or
+statistical models what you find fun and exciting: Markov chains,
+goodness-of-fit-tests, etc.
+
+\hypertarget{students-1}{%
+\subsubsection{134 students}\label{students-1}}
+
+Here are some ideas if there aren't other simulations you would like to
+pursue.
+
+\hypertarget{confidence-intervals}{%
+\paragraph{Confidence intervals}\label{confidence-intervals}}
+
+Simulate random observations from a selected distribution and compute
+the mean and variance estimates. Compare to the theoretical confidence
+results: i.e., the conclusion should be comparing the number of times
+the confidence bound is breached as compared to confidence \(1-\alpha\).
+
+\hypertarget{hypothesis-testing}{%
+\paragraph{Hypothesis testing}\label{hypothesis-testing}}
+
+Select a null distribution. Then select an alternate truth that is
+different than the null. Sample from the alternate distribution, and,
+for a test statistic of your choosing, test various hypotheses. Compute
+the theoretical and empirical type I and II errors. Compare your
+results.
+
+\hypertarget{likelihood-ratio-test}{%
+\paragraph{Likelihood ratio test}\label{likelihood-ratio-test}}
+
+From WMS (120B textbook):
+
+\begin{quote}
+\textbf{Theorem 10.2}: Let \(Y_1, Y_2, \dots, Y_n\) have a joint
+likelihood function \(L(\Theta)\). Let \(r_0\) denote the number of free
+parameters that are specified by \(H_0:\Theta\in\Omega_0\) and let \(r\)
+denote the number of free parameters specified by the statement
+\(\Theta\in\Omega_0\). Then, for large n, \(-2\ln(\lambda)\) has
+approximately a \(\chi^2\) distribution with \(r_0-r\) degrees of
+freedom
+\end{quote}
+
+where
+
+\begin{quote}
+\(\lambda\) is defined by
+\[\lambda = \frac{L(\hat\Omega_0)}{L(\hat\Omega)} = \frac{\max_{\Theta\in{\Omega_0}}L(\Theta)}{\max_{\Theta\in{\Omega}}L(\Theta)}\]
+\end{quote}
+
+    \hypertarget{amy-huynh}{%
+\subsection{Amy Huynh}\label{amy-huynh}}
+
+\hypertarget{assignment-1-hypothesis-testing}{%
+\subsubsection{Assignment 1: Hypothesis
+Testing}\label{assignment-1-hypothesis-testing}}
+
+    Large Sample Tests \textgreater{} Suppose we want to test a set of
+hypotheses concentrating a parameter θ based on a random sample
+\(Y_1, Y_2, Y_3, ..., Y_n\). Let the large sample estimators be defined
+as \(\bar{Y}\) ( sample mean ) and \(\hat{p}\) ( unbiased point
+estimator ). The estimators are used to compare the two population means
+are: (\(\mu_1 - \mu_2\)) and for the comparison parameters
+(\(p_1 - p_2\)). \textgreater{} \textgreater{} If \(\theta_0\) is a
+number of \(\theta\), we may wish to set up our hypothesis testing as:
+\(H_0 = \theta_0\) vs \(H_a > \theta_0\). \textgreater{} \textgreater{}
+This means that our test statistic can be written as \(\hat{\theta}\)
+our rejection region ( the region in which we will reject the null
+hypothesis if the test statistic falls within it ) will be written as RR
+= \(\hat{\theta} > k\) for some choice of k. \textgreater{} The actual
+value of k in the rejection region RR is determined by fixing the type I
+error probability \(\alpha\) (the level of the test) and choosing k
+accordingly. If \(H_0\) is true, \(\hat{\theta}\) has an approximately
+normal distribution with mean \(\theta_0\) and standard error,
+\(\sigma_0\) \textgreater{} \textgreater{}For null distributions, Z,
+with a standard normal distribution then \(z_\alpha\) is P(Z
+\textgreater{} \(z_\alpha\)) = \(\alpha\). \textgreater{} \textgreater{}
+Our rejection region will then be: RR = \{\(\hat{\theta}\) :
+\(\hat{\theta}\) \textgreater{} \(\theta_0\) +
+\(z_\alpha\sigma_\hat{\theta}\)\} = \{\(\hat{\theta}\) :
+\(\frac{\hat{\theta} - \theta_0}{\sigma_\hat{\theta}}\) \textgreater{}
+\(z_\alpha\)\} \textgreater{} \textgreater{} If we set Z =
+(\(\hat{\theta}\) - \(\theta_0\))/\(\sigma_\hat{\theta}\) then our
+rejection region can be written in simpler terms: RR = \{z
+\textgreater{} \(z_\alpha\)\} \textgreater{} \textgreater{} We can
+rewrite our hypotheses as: \(H_0\) : \(\theta\) = \(\theta_0\) vs
+\(H_a\) : \(\theta > \theta_0\) \textgreater{} \textgreater{} Our test
+statistic can be written as: Z =
+\(\frac{\hat{\theta} - \theta_0}{\sigma_\hat{\theta}}\) \textgreater{}
+\textgreater{} \emph{note that the sign within our rejection region
+changes with our alternative hypothesis} \textgreater{} \textgreater{}
+Also notice that Z =
+\(\frac{estimator for parameter - value for the parameter given by H_0}{standard error of the estimator}\)
+\textgreater{} \textgreater{} As statistical testing is not perfect,
+errors may occur. \textgreater{} \textgreater{} A Type I error is
+defined as an error made when we reject the null hypothesis when we are
+not supposed to (meaning the we reject a ``true'' null hypothesis) and a
+Type II error is defined an error made when we fail to reject a null
+hypothesis when we are supposed to (meaning we fail to reject a
+``false'' null hypothesis). \textgreater{} \textgreater{} Type I and
+Type II error can be calculated by finding the corresponding tail area
+associated with the test statistic.
+
+From the explanation above, we can now use that information and design a
+model for a large standard normal distribution.
+
+    Above concept explained in problem below:
+
+Example 10.6 from 120c textbook, Mathematical Statistics with
+Applications \textgreater{} A machine in a factory does not need to be
+repaired if it produces less than 10\% defectives among the large lot of
+items that it produces in a day. A random sample of n (sample size)
+items from the day's production contains y defectives, and the
+supervisor says that the machine does not need to be repaired. Does the
+sample evidence support his decision?
+
+    \(H_0\): p = 0.10 v.s. \(H_A\): p \textless{} 0.10
+
+\(H_0\) = the machine in a factory produces 10\% defective items
+
+\(H_A\) = the machine in a factory produces less than 10\% defective
+items
+
+Type I error = We reject the null hypothesis and claim that the machine
+in a facotry produces less than 10\% defectives when it the machine only
+produces 10\% defectives.
+
+Type II error = We accept the null hypothesis and claim that the machine
+only produces 10\% defective items when the machine actually produces
+less than 10\% defective items.
+
+z = \(\frac{\hat{p} - p_0}{\sigma_\hat{p}}\) =
+\(\frac{\hat{p} - p_0}{\sqrt{p_0(1 - p_0)/n}}\) ; note that our test
+statistic is based on \(\hat{p}\) = y/n \& \(p_0\) = 0.1
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+        \PY{k+kn}{import} \PY{n+nn}{math} \PY{k}{as} \PY{n+nn}{math}
+        \PY{k+kn}{import} \PY{n+nn}{random}
+        \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{c+c1}{\PYZsh{} coding our test statistic: }
+        
+        \PY{k}{def} \PY{n+nf}{teststat}\PY{p}{(}\PY{n}{p0}\PY{p}{,} \PY{n}{n}\PY{p}{,} \PY{n}{t}\PY{p}{)}\PY{p}{:}
+            \PY{c+c1}{\PYZsh{} t is the number of times you want to run this simulation for this particular sample size}
+            \PY{n}{s} \PY{o}{=} \PY{p}{[} \PY{p}{]}
+            \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range} \PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{t}\PY{p}{)}\PY{p}{:}
+                \PY{n}{y} \PY{o}{=} \PY{n}{random}\PY{o}{.}\PY{n}{randint}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{n}\PY{p}{)}
+                \PY{n}{phat} \PY{o}{=} \PY{n}{y}\PY{o}{/}\PY{n}{n}
+                \PY{n}{standarddev} \PY{o}{=} \PY{n}{math}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(}\PY{n}{p0}\PY{o}{*}\PY{p}{(}\PY{l+m+mi}{1}\PY{o}{\PYZhy{}}\PY{n}{p0}\PY{p}{)}\PY{o}{/}\PY{n}{n}\PY{p}{)}
+                \PY{n}{z} \PY{o}{=} \PY{p}{(}\PY{n}{phat}\PY{o}{\PYZhy{}}\PY{n}{p0}\PY{p}{)}\PY{o}{/}\PY{n}{standarddev}
+                \PY{n}{s}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{z}\PY{p}{)}
+                \PY{n}{true\PYZus{}stat} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{s}\PY{p}{)}
+            \PY{k}{return} \PY{n}{true\PYZus{}stat}
+                
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{c+c1}{\PYZsh{} running the test statistic function for 200 trials, 50 times each time to find the true value}
+        \PY{n}{t} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+        \PY{k}{for} \PY{n}{n} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{201}\PY{p}{)}\PY{p}{:}
+            \PY{n}{tstat} \PY{o}{=} \PY{n}{teststat}\PY{p}{(}\PY{l+m+mf}{0.1}\PY{p}{,} \PY{n}{n}\PY{p}{,} \PY{l+m+mi}{50}\PY{p}{)}
+            \PY{n}{t}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{tstat}\PY{p}{)}
+        \PY{n+nb}{print} \PY{p}{(}\PY{n}{t}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[1.6666666666666665, 1.6027753706895078, 2.4248711305964283, 3.0666666666666664, 3.219937887599698, 3.8647504830579025, 4.2583997292372935, 4.3369215912774912, 4.2888888888888888, 3.9423061496765799, 3.7387406727642682, 4.6188021535170058, 4.8074017006186525, 4.1514579577063255, 4.2861015698028746, 5.1500000000000004, 6.4514476259664573, 6.1282587702834102, 5.093029291926471, 6.4249686553493959, 6.6047281444760362, 6.1401806310415807, 6.9782823904434359, 7.0218705959784424, 6.1466666666666665, 6.0534513712652815, 7.5953635413390757, 6.9293486718358324, 5.2489882258046654, 5.6354565361087099, 8.0822385912048702, 7.5896127847356105, 8.6690672665937534, 7.1229079029188664, 8.5304236110598257, 8.4888888888888872, 8.7898658545931028, 8.2192186706253025, 8.4120656798939102, 8.2324628419716799, 8.5166758149919843, 9.6388159276320078, 9.6277430736651066, 8.301612354041092, 8.0200304792992441, 9.161060209090941, 8.4698938396444099, 7.8712086699518977, 9.3238095238095227, 9.1263915225143748, 9.2418485545848643, 10.788918816580706, 8.4522533683093304, 10.904765447501406, 12.270437496831008, 9.5768611685285414, 10.940637269357262, 13.10438199940031, 10.224169142360701, 9.8029511807338832, 8.6126141234861358, 11.557011557017336, 12.758400766689247, 11.274999999999999, 11.353312706065545, 10.971554895957857, 10.433270548028466, 12.442077564363881, 10.240823235829431, 12.812850692064702, 9.1540425235352547, 10.268761811231307, 13.334888037212473, 11.849509309286645, 10.222948766450974, 10.170764201594906, 13.044687318746558, 13.708100626710573, 11.520900105482486, 12.924472909948783, 12.014814814814812, 10.078717279764327, 11.034966937630202, 13.274921656022871, 10.730826646762857, 14.054204774181473, 13.351374767180005, 11.420451706115532, 11.617576764869703, 13.028583959893725, 12.139138409239813, 12.072984573904632, 16.134968370005414, 11.414395125263979, 15.567511528972073, 11.308477645849004, 14.681905547832132, 13.253201384525005, 14.358640254003276, 13.179999999999998, 14.527542977065842, 13.38019379742479, 13.702645828338104, 12.910978896597117, 14.703561099091232, 13.85053639721459, 12.225994131464159, 14.690356849380475, 11.851503902469712, 13.863346047630912, 15.458619890822369, 10.595604060025337, 14.31777161679835, 14.997860796128194, 14.285973662241604, 14.218073059756271, 13.14639465053793, 14.121614638560279, 15.382200780133385, 14.758080021666977, 14.175757575757576, 13.876112010116671, 16.350276041969437, 15.529871781915137, 15.175448007298574, 14.075758740721017, 13.901918647519114, 14.831564735387833, 13.905254647236015, 15.974150058312027, 15.254872829301721, 14.059672012688527, 16.168710565059754, 16.655383245208622, 15.853411830475693, 15.32625689223554, 14.968346163197655, 18.818444373306733, 14.424866397424037, 14.294375628308307, 13.771991082507805, 17.253568726579928, 15.988947231335576, 12.477777777777778, 16.836086949014888, 18.190777431480047, 12.734697366125458, 16.417978865561679, 17.946640605503777, 16.079539333736687, 19.330188524010943, 15.978809981380111, 17.694321266539582, 18.055806547262019, 17.606567689542775, 14.689089309053324, 15.546732509429276, 17.003711020449273, 19.276440543522359, 16.538712162680621, 17.527575434757594, 13.696920242983863, 18.338738002384709, 19.105256871039472, 19.825773111313453, 17.846287754407616, 17.880475493088785, 17.060807060808628, 13.343589743589744, 18.892904225273558, 15.29438225803745, 17.8474160145925, 14.668449707696849, 15.22766270202157, 15.808994024399277, 19.643464099241299, 16.626410139422575, 15.740165468913093, 17.25080194071468, 20.228961636448094, 17.308843018942344, 18.827732643191968, 20.175812555253476, 17.973174455281956, 21.580999873860243, 19.191219119127769, 16.599884027685864, 21.714435067653234, 16.216013887759075, 20.250460394737459, 17.925354888444257, 18.12879845255425, 17.731461326776174, 18.992386489301229, 20.046442373943858, 13.890476190476191, 18.281993026897613, 19.695008397561612, 23.161511904972361, 18.785470153522613]
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{c+c1}{\PYZsh{} plotting the test statistic results}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{t}\PY{p}{,} \PY{n}{color} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{green}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{true test statistic}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_8_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    In order to calculate the type 1 and type 2 error, we must set up an
+arbitrary rejection region (because we are running a general simulation
+and not a specific problem)
+
+Because we reject the null hypothesis when the machine produces more
+than 10\% defective products we are going to say that a good number to
+reject the null hypothesis when the machine produces more than ``y''
+defective products. We are going to set ``y'' = 10 so that the rejection
+region is RR \{ y \$\geq \$ 10 \}.
+
+** Note that we cannot keep changing the number of defectives in this
+scenario because the error depends on the number selected for the
+rejection region and if we keep changing the number of defectives the
+error values project an erroneous pattern.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{c+c1}{\PYZsh{} Calculating Type I Error: }
+        
+        \PY{c+c1}{\PYZsh{} create a n choose k function first:}
+        \PY{k}{def} \PY{n+nf}{ncr}\PY{p}{(}\PY{n}{n}\PY{p}{,} \PY{n}{k}\PY{p}{)}\PY{p}{:}
+            \PY{n}{a} \PY{o}{=} \PY{p}{(}\PY{n}{math}\PY{o}{.}\PY{n}{factorial}\PY{p}{(}\PY{n}{n}\PY{p}{)}\PY{p}{)}\PY{o}{/}\PY{p}{(}\PY{p}{(}\PY{n}{math}\PY{o}{.}\PY{n}{factorial}\PY{p}{(}\PY{n}{k}\PY{p}{)}\PY{o}{*}\PY{n}{math}\PY{o}{.}\PY{n}{factorial}\PY{p}{(}\PY{n}{n}\PY{o}{\PYZhy{}}\PY{n}{k}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+            \PY{k}{return} \PY{n}{a}
+        
+        \PY{k}{def} \PY{n+nf}{type1}\PY{p}{(}\PY{n}{p0}\PY{p}{,} \PY{n}{n}\PY{p}{,} \PY{n}{t}\PY{p}{)}\PY{p}{:}
+            \PY{c+c1}{\PYZsh{} once again, t is the number of times you want to run this simulation:}
+            \PY{n}{s} \PY{o}{=} \PY{p}{[}\PY{p}{]} 
+            \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{t}\PY{p}{)}\PY{p}{:}
+                \PY{n}{alpha} \PY{o}{=} \PY{l+m+mf}{0.0}
+                \PY{n}{y} \PY{o}{=} \PY{l+m+mi}{10}
+                \PY{k}{for} \PY{n}{j} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{y}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{:}
+                    \PY{n}{alpha} \PY{o}{+}\PY{o}{=} \PY{n+nb}{float}\PY{p}{(}\PY{n}{ncr}\PY{p}{(}\PY{n}{n}\PY{p}{,} \PY{n}{j}\PY{p}{)}\PY{p}{)}\PY{o}{*}\PY{p}{(}\PY{p}{(}\PY{n}{p0}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{n}{j}\PY{p}{)}\PY{o}{*}\PY{p}{(}\PY{p}{(}\PY{l+m+mi}{1}\PY{o}{\PYZhy{}}\PY{n}{p0}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{p}{(}\PY{n}{n}\PY{o}{\PYZhy{}}\PY{n}{j}\PY{p}{)}\PY{p}{)}
+                \PY{n}{s}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{alpha}\PY{p}{)}
+                \PY{n}{truetype1} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{s}\PY{p}{)}
+            \PY{k}{return} \PY{n}{truetype1}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{n}{x} \PY{o}{=} \PY{p}{[} \PY{p}{]}
+        
+        \PY{k}{for} \PY{n}{n} \PY{o+ow}{in} \PY{n+nb}{range} \PY{p}{(}\PY{l+m+mi}{11}\PY{p}{,} \PY{l+m+mi}{201}\PY{p}{)}\PY{p}{:} \PY{c+c1}{\PYZsh{} we have to start with a number bigger than 10 because that is the smallest number of defectives we can have for a type I error}
+            \PY{n}{t1} \PY{o}{=} \PY{n}{type1}\PY{p}{(}\PY{l+m+mf}{0.1}\PY{p}{,} \PY{n}{n}\PY{p}{,} \PY{l+m+mi}{50}\PY{p}{)}
+            \PY{n}{x}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{t1}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{x}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[0.99999999999000067, 0.9999999998910003, 0.99999999935640016, 0.99999999727146049, 0.99999999070389978, 0.99999997297148469, 0.99999993041368951, 0.99999983739450859, 0.99999964903066685, 0.99999929113936747, 0.9999986469350286, 0.99999754007484642, 0.99999571375554619, 0.99999280569327542, 0.99998831896862905, 0.99998158888165956, 0.99997174612946693, 0.99995767678368541, 0.99993797969959131, 0.99991092212617771, 0.99987439440206993, 0.9998258647114685, 0.99976233493468203, 0.99968029865770092, 0.99957570240455029, 0.99944391112558006, 0.99927967891640213, 0.99907712585841568, 0.99882972176616103, 0.99853027750277656, 0.99817094438671605, 0.9977432220646949, 0.99723797507180734, 0.99664545814378547, 0.99595535019232384, 0.99515679670563306, 0.9942384601959382, 0.99318857818620609, 0.9919950281119847, 0.99064539841267252, 0.98912706500094605, 0.98742727223025739, 0.9855332174286332, 0.98343213803241236, 0.98111140033567779, 0.97855858886926972, 0.97576159543650964, 0.97270870685990085, 0.96938869053283938, 0.96579087692126853, 0.96190523822077201, 0.95772246244317838, 0.95323402228183807, 0.9484322381847059, 0.94331033514776441, 0.93786249282665435, 0.93208388865033398, 0.92597073370591121, 0.91952030124731277, 0.91273094776122898, 0.90560212660084094, 0.8981343942705331, 0.89032940951240425, 0.88218992540749885, 0.87371977476083162, 0.86492384908929265, 0.85580807157515215, 0.84637936438515293, 0.83664561078606581, 0.82661561251222371, 0.81629904285912913, 0.80570639598996563, 0.79484893294907311, 0.78373862487846124, 0.77238809393064667, 0.76081055236387629, 0.74901974029455953, 0.73702986256693026, 0.72485552518195262, 0.71251167170680429, 0.70001352006321682, 0.68737650006803375, 0.67461619207289758, 0.66174826702238088, 0.64878842822150329, 0.63575235507473848, 0.62265564902961623, 0.60951378192916605, 0.59634204694894222, 0.58315551226649343, 0.56996897758404463, 0.55679693359904892, 0.54365352449228155, 0.53055251347940702, 0.517507251449566, 0.50453064869356634, 0.49163514970479144, 0.47883271101799751, 0.46613478203476921, 0.45355228876957038, 0.44109562043702349, 0.42877461878928635, 0.41659857010211093, 0.40457619969933684, 0.39271566889813841, 0.38102457425124292, 0.36950994895750805, 0.35817826630862704, 0.34703544503722727, 0.33608685643019137, 0.32533733307055607, 0.31479117907177878, 0.30445218166940607, 0.29432362403717005, 0.28440829919719174, 0.27470852489721292, 0.26522615933154392, 0.25596261758662125, 0.24691888869666268, 0.23809555319982095, 0.22949280109040007, 0.22111045006808019, 0.212947963990608, 0.20500447144204359, 0.19727878433432688, 0.18976941646562634, 0.18247460196460288, 0.17539231355534152, 0.1685202805832301, 0.1618560067474849, 0.15539678749130104, 0.14913972700573058, 0.14308175480833735, 0.13721964186243876, 0.13155001620730108, 0.12606937807400131, 0.12077411446579843, 0.11566051318576016, 0.11072477629807111, 0.10596303301289764, 0.10137135198790898, 0.096945753042547531, 0.092682218283917678, 0.08857670264571256, 0.084625143843940098, 0.080823471755338328, 0.077167617226299404, 0.07365352032185582, 0.070277138025829633, 0.067034451404612519, 0.063921472248244127, 0.060934249203490609, 0.058068873414509906, 0.055321483687428445, 0.052688271195758134, 0.050165483744061101, 0.047749429607628173, 0.045436480966189519, 0.043223076949825433, 0.041105726315303563, 0.039081009771042036, 0.037145581968794514, 0.035296173179980225, 0.033529590674345959, 0.031842719818356159, 0.030232524910365904, 0.02869604976924749, 0.027230418092719567, 0.025832833601173288, 0.024500579982308764, 0.023231020651390811, 0.022021598341411073, 0.020869834536907113, 0.019773328764642356, 0.018729757753797281, 0.017736874477764689, 0.016792507089083673, 0.015894557758490378, 0.015041001428510687, 0.014229884491474111, 0.013459323401289374, 0.012727503227793478, 0.0120326761619688, 0.01137315997981718, 0.010747336472188528, 0.010153649847384047, 0.0095906051128920571, 0.0090567664421678309, 0.0085507555319388057, 0.0080712499551027269]
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{c+c1}{\PYZsh{} plotting the type I error statistic results}
+        \PY{n}{t1\PYZus{}range} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{l+m+mi}{11}\PY{p}{,} \PY{l+m+mi}{201}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{t1\PYZus{}range}\PY{p}{,} \PY{n}{x}\PY{p}{,} \PY{n}{color} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{purple}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{test I error}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_12_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{c+c1}{\PYZsh{} Calculating Type II Error:}
+        \PY{c+c1}{\PYZsh{} P(Type II Error) = P(Y \PYZlt{} 15 when p = 0.1)}
+        
+        \PY{k}{def} \PY{n+nf}{type2}\PY{p}{(}\PY{n}{p0}\PY{p}{,} \PY{n}{n}\PY{p}{,} \PY{n}{t}\PY{p}{)}\PY{p}{:}
+            \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{t}\PY{p}{)}\PY{p}{:}
+                \PY{n}{beta} \PY{o}{=} \PY{l+m+mf}{0.0}
+                \PY{n}{y} \PY{o}{=} \PY{l+m+mi}{10}
+                \PY{k}{for} \PY{n}{j} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{y}\PY{p}{,} \PY{n}{n}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{:}
+                    \PY{n}{beta} \PY{o}{+}\PY{o}{=} \PY{n+nb}{float}\PY{p}{(}\PY{p}{(}\PY{n}{ncr}\PY{p}{(}\PY{n}{n}\PY{p}{,} \PY{n}{j}\PY{p}{)}\PY{p}{)}\PY{o}{*}\PY{p}{(}\PY{p}{(}\PY{n}{p0}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{n}{j}\PY{p}{)}\PY{o}{*}\PY{p}{(}\PY{p}{(}\PY{l+m+mi}{1}\PY{o}{\PYZhy{}}\PY{n}{p0}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{p}{(}\PY{n}{n}\PY{o}{\PYZhy{}}\PY{n}{j}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+            \PY{k}{return} \PY{n}{beta}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{n}{z} \PY{o}{=} \PY{p}{[} \PY{p}{]}
+        \PY{k}{for} \PY{n}{n} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{11}\PY{p}{,} \PY{l+m+mi}{201}\PY{p}{)}\PY{p}{:}
+            \PY{n}{t2} \PY{o}{=} \PY{n}{type2}\PY{p}{(}\PY{l+m+mf}{0.1}\PY{p}{,} \PY{n}{n}\PY{p}{,} \PY{l+m+mi}{50}\PY{p}{)}
+            \PY{n}{z}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{t2}\PY{p}{)}
+        \PY{n+nb}{print} \PY{p}{(}\PY{n}{z}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[1.0000000000000005e-09, 5.455000000000004e-09, 2.1493000000000013e-08, 6.840415000000004e-08, 1.8662024800000012e-07, 4.526064685000003e-07, 9.99778122100001e-07, 2.046243909610002e-06, 3.929882327128002e-06, 7.1509040210837865e-06, 1.242166679301143e-05, 2.0723118158797472e-05, 3.336686716207158e-05, 5.206155318834119e-05, 7.898190106616943e-05, 0.00011683864026936534, 0.00016894732834905863, 0.00023929405725664444, 0.00033259603454460047, 0.00045435511490538315, 0.0006109025039406749, 0.0008094330563990677, 0.0010580278351295775, 0.0013656638738085824, 0.0017422103851516854, 0.002198410966201982, 0.00274585166346234, 0.0033969150641326926, 0.004164720867681868, 0.005063053657834402, 0.0061062788334954095, 0.007309247864179509, 0.008687194208417659, 0.01025562137082991, 0.012030184674587769, 0.014026568391315355, 0.016260359901383522, 0.018746922556012038, 0.021501268881139016, 0.02453793570459149, 0.027870862705941787, 0.031513275785988885, 0.03547757653357503, 0.039775238934935446, 0.04441671432840474, 0.04941134545833363, 0.05476729032957653, 0.06049145641071738, 0.06658944558287148, 0.07306551008369913, 0.07992251955516376, 0.0871619391702293, 0.09478381868948695, 0.10278679218470746, 0.11116808806333849, 0.11992354893655115, 0.12904766079389918, 0.138533590880073, 0.1483732336135278, 0.1585572638426537, 0.16907519670224258, 0.17991545331075456, 0.19106543153665242, 0.20251158105917577, 0.21423948195456113, 0.22623392605211431, 0.2384790003248405, 0.2509581716057216, 0.26365437195235697, 0.27655008401872555, 0.28962742583250756, 0.3028682344189619, 0.3162541477570485, 0.32976668459968467, 0.343387321737062, 0.3570975683292906, 0.37087903698173796, 0.3847135112828492, 0.3985830095695328, 0.4124698447290745, 0.4263566798886163, 0.44022657988332936, 0.4540630584322721, 0.4678501209863974, 0.48157230324614986, 0.4952147053764855, 0.5087630219748877, 0.5222035678730755, 0.5355232998755488, 0.5487098345579977, 0.5617514622659145, 0.5746371574686274, 0.5873565856364671, 0.5999001068190067, 0.6122587761104352, 0.6244243411941846, 0.636389237163151, 0.6481465788142885, 0.659690150617223, 0.6710143945559022, 0.6821143960403501, 0.692985868082471, 0.703625133925634, 0.7140291083126499, 0.7241952775708203, 0.7341216786861088, 0.7438068775313065, 0.753249946405374, 0.7624504410331352, 0.7714083771661646, 0.7801242069172204, 0.7885987949519518, 0.7968333946529569, 0.804829624362617, 0.8125894438025998, 0.8201151307594802, 0.8274092581176872, 0.834474671312967, 0.8413144662717594, 0.8479319678943906, 0.8543307091328032, 0.8605144107066455, 0.8664869614950399, 0.8722523996351265, 0.8778148943526832, 0.8831787285446122, 0.8883482821280143, 0.8933280161657765, 0.8981224577742262, 0.9027361858143577, 0.9071738173644075, 0.9114399949682055, 0.9155393746506522, 0.9194766146889425, 0.923256365125701, 0.9268832580080316, 0.9303618983345876, 0.9336968556911347, 0.9368926565536674, 0.9399537772369936, 0.9428846374657092, 0.9456895945437556, 0.9483729380981377, 0.9509388853720161, 0.9533915770420819, 0.9557350735350557, 0.9579733518181405, 0.9601103026384102, 0.962149728186346, 0.9640953401590758, 0.9659507581992955, 0.9677195086863206, 0.9694050238563096, 0.9710106412292789, 0.9725396033212167, 0.9739950576202726, 0.9753800568067633, 0.976697559197456, 0.9779504293953979, 0.9791414391273163, 0.980273268251438, 0.9813485059193533, 0.982369651876367, 0.9833391178855565, 0.9842592292615513, 0.9851322265008233, 0.9859602669960368, 0.9867454268227479, 0.9874897025874767, 0.9881950133268755, 0.9888632024484116, 0.9894960397036342, 0.9900952231857454, 0.9906623813438135, 0.9911990750065337, 0.991706799409051, 0.9921869862168546, 0.9926410055413115, 0.9930701679418603, 0.9934757264103784, 0.9938588783336749, 0.9942207674304585, 0.9945624856595531, 0.9948850750964747, 0.9951895297758621, 0.9954767974975415, 0.9957477815943556, 0.9960033426601282, 0.9962443002364273, 0.996471434457034]
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{c+c1}{\PYZsh{} plotting the type I error statistic results}
+         \PY{n}{t2\PYZus{}range} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{l+m+mi}{11}\PY{p}{,} \PY{l+m+mi}{201}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{t2\PYZus{}range}\PY{p}{,} \PY{n}{z}\PY{p}{,} \PY{n}{color} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{skyblue}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{test II error}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_15_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
